@@ -1,0 +1,240 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+      "title": "Rooms Management API",
+      "version": "1.0.0",
+      "description": "API for managing hotel rooms and bookings."
+    },
+    "servers": [
+      {
+        "url": "http://localhost:3000",
+        "description": "Local Server"
+      }
+    ],
+    "paths": {
+      "/rooms": {
+        "get": {
+          "summary": "Get a list of all rooms",
+          "tags": ["Rooms"],
+          "responses": {
+            "200": {
+              "description": "List of rooms",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/Room"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "post": {
+          "summary": "Create a new room",
+          "tags": ["Rooms"],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Room"
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "Room created successfully",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Room"
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Validation error"
+            }
+          }
+        }
+      },
+      "/rooms/{id}": {
+        "put": {
+          "summary": "Update a room by ID",
+          "tags": ["Rooms"],
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "integer"
+              },
+              "description": "Room ID"
+            }
+          ],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Room"
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Room updated successfully",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Room"
+                  }
+                }
+              }
+            },
+            "404": {
+              "description": "Room not found"
+            }
+          }
+        },
+        "delete": {
+          "summary": "Delete a room by ID",
+          "tags": ["Rooms"],
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "integer"
+              },
+              "description": "Room ID"
+            }
+          ],
+          "responses": {
+            "204": {
+              "description": "Room deleted successfully"
+            },
+            "404": {
+              "description": "Room not found"
+            }
+          }
+        }
+      },
+      "/bookings": {
+        "get": {
+          "summary": "Get a list of all bookings",
+          "tags": ["Bookings"],
+          "responses": {
+            "200": {
+              "description": "List of bookings",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/Booking"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "post": {
+          "summary": "Create a new booking",
+          "tags": ["Bookings"],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Booking"
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "Booking created successfully",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Booking"
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Validation error"
+            }
+          }
+        }
+      }
+    },
+    "components": {
+      "schemas": {
+        "Room": {
+          "type": "object",
+          "required": ["type", "pricePerNight", "maxOccupancy"],
+          "properties": {
+            "id": {
+              "type": "integer",
+              "description": "Unique identifier for the room"
+            },
+            "type": {
+              "type": "string",
+              "description": "Type of room (e.g., Single, Double, Suite)"
+            },
+            "pricePerNight": {
+              "type": "number",
+              "description": "Price per night for the room"
+            },
+            "maxOccupancy": {
+              "type": "integer",
+              "description": "Maximum occupancy of the room"
+            }
+          }
+        },
+        "Booking": {
+          "type": "object",
+          "required": ["roomId", "customerName", "startDate", "endDate"],
+          "properties": {
+            "id": {
+              "type": "integer",
+              "description": "Unique identifier for the booking"
+            },
+            "roomId": {
+              "type": "integer",
+              "description": "ID of the room being booked"
+            },
+            "customerName": {
+              "type": "string",
+              "description": "Name of the customer making the booking"
+            },
+            "startDate": {
+              "type": "string",
+              "format": "date",
+              "description": "Start date of the booking"
+            },
+            "endDate": {
+              "type": "string",
+              "format": "date",
+              "description": "End date of the booking"
+            },
+            "totalPrice": {
+              "type": "number",
+              "description": "Total price for the booking"
+            }
+          }
+        }
+      }
+    }
+  }
+  
