@@ -52,10 +52,13 @@ The Rooms Management API is a RESTful service for managing hotel rooms and booki
 | DELETE | `/rooms/{id}`    | Delete a room by ID.            |
 
 ### Bookings
-| Method | Endpoint         | Description                      |
-|--------|------------------|----------------------------------|
-| GET    | `/bookings`      | Retrieve all bookings.          |
-| POST   | `/bookings`      | Create a new booking.           |
+
+| Method | Endpoint          | Description                        |
+|--------|-------------------|------------------------------------|
+| GET    | /bookings         | Retrieve all bookings.            |
+| POST   | /bookings         | Create a new booking.             |
+| PUT    | /bookings/{id}    | Update an existing booking by ID. |
+| DELETE | /bookings/{id}    | Delete a booking by ID.           |
 
 
 ## API Documentation

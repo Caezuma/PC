@@ -1,5 +1,6 @@
 const express = require('express');
 const roomsRoutes = require('./routes/rooms');
+const bookingsRoutes = require('./routes/bookings');
 const setupSwagger = require('./swagger/swagger');
 
 const app = express();
@@ -10,6 +11,7 @@ app.use(express.json());
 setupSwagger(app);
 
 app.use('/rooms', roomsRoutes);
+app.use('/bookings', bookingsRoutes);
 
 app.use((req, res) => {
     res.status(404).json({ error: 'Endpoint not found' });
