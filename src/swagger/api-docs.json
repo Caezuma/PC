@@ -12,10 +12,111 @@
     }
   ],
   "paths": {
+    "/auth/login": {
+      "post": {
+        "summary": "Login a user",
+        "tags": ["Auth"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "username": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                },
+                "required": ["username", "password"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Login successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "token": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid credentials"
+          },
+          "400": {
+            "description": "Validation error"
+          }
+        }
+      }
+    },
+    "/auth/register": {
+      "post": {
+        "summary": "Register a new user",
+        "tags": ["Auth"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "username": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                },
+                "required": ["username", "password"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "User registered successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation error"
+          }
+        }
+      }
+    },
     "/rooms": {
       "get": {
         "summary": "Get a list of all rooms",
         "tags": ["Rooms"],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "List of rooms",
@@ -35,6 +136,11 @@
       "post": {
         "summary": "Create a new room",
         "tags": ["Rooms"],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
         "requestBody": {
           "required": true,
           "content": {
@@ -66,6 +172,11 @@
       "put": {
         "summary": "Update a room by ID",
         "tags": ["Rooms"],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
         "parameters": [
           {
             "name": "id",
@@ -106,6 +217,11 @@
       "delete": {
         "summary": "Delete a room by ID",
         "tags": ["Rooms"],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
         "parameters": [
           {
             "name": "id",
@@ -131,6 +247,11 @@
       "get": {
         "summary": "Get a list of all bookings",
         "tags": ["Bookings"],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "List of bookings",
@@ -150,6 +271,11 @@
       "post": {
         "summary": "Create a new booking",
         "tags": ["Bookings"],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
         "requestBody": {
           "required": true,
           "content": {
@@ -184,6 +310,11 @@
       "put": {
         "summary": "Update a booking by ID",
         "tags": ["Bookings"],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
         "parameters": [
           {
             "name": "id",
@@ -224,6 +355,11 @@
       "delete": {
         "summary": "Delete a booking by ID",
         "tags": ["Bookings"],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
         "parameters": [
           {
             "name": "id",
@@ -254,13 +390,13 @@
           "id": {
             "type": "integer"
           },
-          "name": {
+          "type": {
             "type": "string"
           },
-          "price": {
+          "pricePerNight": {
             "type": "number"
           },
-          "available": {
+          "maxOccupancy": {
             "type": "boolean"
           }
         }
@@ -286,6 +422,13 @@
             "format": "date"
           }
         }
+      }
+    },
+    "securitySchemes": {
+      "BearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
       }
     }
   }

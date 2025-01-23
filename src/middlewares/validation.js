@@ -7,3 +7,13 @@ exports.validateRoomFields = (req, res, next) => {
 
     next();
 };
+
+exports.validateBookingFields = (req, res, next) => {
+    const { roomId, customerName, startDate, endDate } = req.body;
+
+    if (!roomId || !customerName || !startDate || !endDate) {
+        return res.status(400).json({ error: "Missing required fields: roomId, customerName, startDate, endDate" });
+    }
+
+    next();
+};

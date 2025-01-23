@@ -23,7 +23,7 @@ exports.createBooking = (req, res) => {
         customerName,
         startDate,
         endDate,
-        totalPrice: room.pricePerNight * ((new Date(endDate) - new Date(startDate)) / (1000 * 60 * 60 * 24)) // Calculate total price
+        totalPrice: room.pricePerNight * ((new Date(endDate) - new Date(startDate)) / (1000 * 60 * 60 * 24)) 
     };
 
     bookings.push(newBooking);
