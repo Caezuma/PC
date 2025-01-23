@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const roomsController = require('../controllers/roomsController');
-const { verifyToken } = require('../middlewares/authMiddleware'); 
+const { verifyToken } = require('../middlewares/authMiddleware');
 const { validateRoomFields } = require('../middlewares/validation');
 
 

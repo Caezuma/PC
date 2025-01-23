@@ -6,7 +6,7 @@ const { validateBookingFields } = require('../middlewares/validation');
 
 
 router.get('/', verifyToken, bookingsController.getBookings);
-router.post('/', verifyToken,validateBookingFields, bookingsController.createBooking);
+router.post('/', verifyToken, validateBookingFields, bookingsController.createBooking);
 router.put('/:id', verifyToken, validateBookingFields, bookingsController.updateBooking);
 router.delete('/:id', verifyToken, bookingsController.deleteBooking);
 
